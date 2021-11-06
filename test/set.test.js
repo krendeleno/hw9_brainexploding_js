@@ -30,6 +30,12 @@ describe('немного тестов', () => {
             result+=item + ' ';
         }
         expect(result).toEqual('4,4 8,8 15,15 16,16 23,23 42,42 ');
+
+        result = '';
+        for (const item of set.keys()) {
+            result+=item + ' ';
+        }
+        expect(result).toEqual('4 8 15 16 23 42 ');
     })
     it('есть метод clear', () => {
         set.clear();

@@ -40,7 +40,9 @@ module.exports = class MySet {
     }
 
     *keys() {
-        return this.values();
+        for (let item of this.items) {
+            yield item;
+        }
     }
 
     *values() {
