@@ -1,6 +1,5 @@
 module.exports = class MySet {
     items = [];
-    size = 0;
     [Symbol.toStringTag] = '^_^'
 
     constructor(items) {
@@ -8,9 +7,12 @@ module.exports = class MySet {
             this.add(item)
     }
 
+    get size() {
+        return this.items.length;
+    }
+
     clear() {
         this.items = [];
-        this.size = 0;
     }
 
     has(item) {
@@ -20,7 +22,6 @@ module.exports = class MySet {
     add(item) {
         if (!this.items.includes(item)) {
             this.items.push(item);
-            this.size++;
         }
         return this;
     }
@@ -30,7 +31,6 @@ module.exports = class MySet {
             return false;
         else {
             this.items = this.items.filter(x => x !== item);
-            this.size--;
             return true;
         }
     }
@@ -40,9 +40,7 @@ module.exports = class MySet {
     }
 
     *keys() {
-        for (let item of this.items) {
-            yield item;
-        }
+        return this.values();
     }
 
     *values() {
@@ -60,5 +58,4 @@ module.exports = class MySet {
     forEach(fn, context) {
         this.items.forEach(fn, context);
     }
-
 }

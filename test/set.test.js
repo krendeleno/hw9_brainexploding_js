@@ -1,5 +1,4 @@
-const MySet = require('../solution');
-const set = new MySet([4, 8, 15, 15, 16, 23, 42]);
+MySet = require('../solution');
 
 const object = {
     getValue () { return this.value }
@@ -9,6 +8,8 @@ const data = {
     value: 42
 }
 
+const set = new MySet([4, 8, 15, 15, 16, 23, 42]);
+
 describe('немного тестов', () => {
     it('хранит только уникальные значения', () => {
         expect([...set]).toEqual([ 4, 8, 15, 16, 23, 42 ]);
@@ -17,14 +18,18 @@ describe('немного тестов', () => {
         expect(set.size).toEqual(6);
     })
     it('работает в цикле for-of', () => {
+        let result = '';
         for (const item of set) {
-            console.log(item); // 4 8 15 16 23 42
+            result+=item + ' ';
         }
+        expect(result).toEqual('4 8 15 16 23 42 ');
     })
     it('есть методы keys, values, entries', () => {
+        let result = '';
         for (const item of set.entries()) {
-            console.log(item); // [ 4, 4 ] [ 8, 8 ] ...
+            result+=item + ' ';
         }
+        expect(result).toEqual('4,4 8,8 15,15 16,16 23,23 42,42 ');
     })
     it('есть метод clear', () => {
         set.clear();
@@ -33,12 +38,15 @@ describe('немного тестов', () => {
     it('есть метод add', () => {
         set.add(object);
         set.add(data);
+        expect([...set]).toEqual([ object, data ]);
     })
     it('add может работать в цепочке вызовов', () => {
         set.add(object).add(object).add(object);
+        expect([...set]).toEqual([ object, data ]);
     })
     it('есть метод delete', () => {
         set.delete(data);
+        expect([...set]).toEqual([ object ]);
     })
     it('есть метод has', () => {
         expect(set.has({})).toEqual(false);
@@ -54,7 +62,7 @@ describe('немного тестов', () => {
     })
     it('forEach', () => {
         set.forEach(function (item) {
-            expect(item.getValue.call(this)).toEqual(42); // 42
+            expect(item.getValue.call(this)).toEqual(42);
         }, data)
     })
 })
